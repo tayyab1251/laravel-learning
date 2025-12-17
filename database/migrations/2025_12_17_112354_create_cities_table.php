@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('phone', 15);
-            $table->renameColumn('email', 'user_email');
-            $table->string('phone')->nullable()->change();
+        Schema::create('cities', function (Blueprint $table) {
+            $table->unsignedBigInteger('city_id', true)->primary();
+            $table->string('name', 15);
         });
     }
 
@@ -23,8 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('cities');
     }
 };

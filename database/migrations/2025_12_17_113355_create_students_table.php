@@ -1,0 +1,32 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('students', function (Blueprint $table) {
+            $table->bigInteger('student_id', true);
+            $table->string('name', 50);
+            $table->unsignedInteger('age')->nullable(); //student age and can be null
+            $table->string('email', 50)->unique(); // studnet email will be unique
+            $table->string('phone',15)->nullable(); // phone can be null
+            $table->unsignedBigInteger('city_id');
+            $table->foreign('city_id')->references('city_id')->on('cities')->cascadeOnDelete();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('students');
+    }
+};
