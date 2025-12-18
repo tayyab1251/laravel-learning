@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('phone',15)->nullable(); // phone can be null
             $table->unsignedBigInteger('city_id');
             $table->foreign('city_id')->references('city_id')->on('cities')->cascadeOnDelete();
+            $table->timestamps();
         });
     }
 
