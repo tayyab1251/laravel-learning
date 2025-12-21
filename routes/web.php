@@ -15,3 +15,4 @@ Route::get('/', [UserController::class, 'welcomUser']);
 Route::get('users/{id}', [UserController::class, 'greetUserWithId']);
 
 Route::get('students', [StudentsController::class, 'students']);
+Route::get('create-student', [StudentsController::class, 'createStudent']);
