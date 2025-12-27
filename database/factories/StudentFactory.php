@@ -19,6 +19,7 @@ class StudentFactory extends Factory
         return [
              // defining fake data for our students table
             'name' => fake()->name('male'),
+            'age' => fake()->numberBetween(10, 25),
             'email' => fake()->email(),
             'phone' => '03' . fake()->numerify('#########'),
             'city_id' => fake()->numberBetween(1,3),

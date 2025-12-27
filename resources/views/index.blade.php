@@ -52,7 +52,7 @@
             <td>
                 <form action="{{route('students.delete', $student->student_id)}}" method="post">
                     @csrf
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <button onclick="return confirm('Are you sure to delete ?')" type="submit" class="btn btn-danger">Delete</button>
                 </form>
             </td>
             {{-- <td><a href="{{route('delete/{{$student->student_id}}')}}" class="btn btn-primary">Edit</a></td> --}}
