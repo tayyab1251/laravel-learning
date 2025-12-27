@@ -1,20 +1,22 @@
 <?php
 
-use App\Http\Controllers\StudentsController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\StudentController;
+
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 // Entry point to our project
-Route::get('/', [UserController::class, 'welcomUser']);
+Route::get('/', [StudentController::class, 'index']);
 
-// Route for displaying hello to a specific user
-Route::get('users/{id}', [UserController::class, 'greetUserWithId']);
+// Load view for adding new student
+Route::get('students/create',[StudentController::class, 'loadAddForm']);
 
-Route::get('students', [StudentsController::class, 'students']);
-Route::get('create-student', [StudentsController::class, 'createStudent']);
-Route::get('update', [StudentsController::class, 'updateStudent']);
-Route::get('delete', [StudentsController::class, 'deleteStudent']);
+// Route for adding a new student
+Route::post('create', [StudentController::class, 'create'])->name('students.add');
+
+// Route for editing student
+Route::get('students/{id}/edit', [StudentController::class, 'loadUpdateStudentForm'])->name('students.edit');
+
+// Route for handling edit student data
+Route::post('students/{id}', [StudentController::class, 'update'])->name('students.update');
+
+Route::post('students/{id}/delete', [StudentController::class, 'destroy'])->name('students.delete');
