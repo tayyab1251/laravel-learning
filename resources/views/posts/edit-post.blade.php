@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Edit')
+@section('title', 'Edit Post')
 
 @section('content')
 
@@ -11,27 +11,43 @@
 </div>
 @endif
 
-<form class="border border-dark p-4" method="POST" action="{{route('posts.update', $post->id)}}">
-    <h3 class="text-primary text-center">Edit Post</h3>
-    <div class="mb-3">
-        @csrf
-        @method('PATCH')
-        <label for="title" class="form-label">Title</label>
-        <input type="text" name="title" placeholder="Enter post title"
-            class="form-control @error('title') is-invalid @enderror" id="title" value="{{$post->title}}">
-        @error('title')
-        <small class="text-danger">{{ $message }}</small>
-        @enderror
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-4">
+                <h3 class="fw-light mb-4">Edit Post</h3>
+                
+                <form method="POST" action="{{route('posts.update', $post->id)}}">
+                    @csrf
+                    @method('PATCH')
+                    
+                    <div class="mb-3">
+                        <label for="title" class="form-label fw-medium">Title</label>
+                        <input type="text" name="title" placeholder="Enter post title"
+                            class="form-control @error('title') is-invalid @enderror" 
+                            id="title" value="{{$post->title}}">
+                        @error('title')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="description" class="form-label fw-medium">Description</label>
+                        <textarea name="description" class="form-control @error('description') is-invalid @enderror"
+                            placeholder="Enter description..." id="description" rows="6">{{$post->description}}</textarea>
+                        @error('description')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary px-4">Update</button>
+                        <a href="{{route('posts.index')}}" class="btn btn-outline-secondary px-4">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
-    </div>
-    <div class="mb-3">
-        <label for="description" class="form-label">Description</label>
-        <textarea name="description" class="form-control @error('description') is-invalid @enderror"
-            placeholder="Enter description...." id="description" cols="20" rows="5">{{$post->description}}</textarea>
-        @error('description')
-        <small class="text-danger">{{ $message }}</small>
-        @enderror
-    </div>
-    <button type="submit" class="btn btn-primary">Save</button>
-</form>
 @endsection

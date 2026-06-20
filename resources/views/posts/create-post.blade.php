@@ -3,8 +3,6 @@
 @section('title', 'Create New Post')
 
 @section('content')
-{{-- --}}
-{{-- alert --}}
 
 @if (session('post_success'))
 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -13,41 +11,53 @@
 </div>
 @endif
 
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-4">
+                <h3 class="fw-light mb-4">Create New Post</h3>
+                
+                <form method="POST" action="{{route('posts.store')}}" enctype="multipart/form-data">
+                    @csrf
+                    
+                    <div class="mb-3">
+                        <label for="title" class="form-label fw-medium">Title</label>
+                        <input type="text" name="title" placeholder="Enter post title"
+                            class="form-control @error('title') is-invalid @enderror" 
+                            id="title" value="{{old('title')}}">
+                        @error('title')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
 
-<form class="border border-dark p-4" method="POST" action="{{route('posts.store')}}" enctype="multipart/form-data">
-    <h3 class="text-primary text-center">Create New Post</h3>
-    <div class="mb-3">
-        @csrf
-        <label for="title" class="form-label">Title</label>
-        <input type="text" name="title" placeholder="Enter post title"
-            class="form-control @error('title') is-invalid @enderror" id="title" value="{{old('title')}}">
-        @error('title')
-        <small class="text-danger">{{ $message }}</small>
-        @enderror
+                    <div class="mb-3">
+                        <label for="image" class="form-label fw-medium">Post Thumbnail</label>
+                        <input type="file" name="image" 
+                            class="form-control @error('image') is-invalid @enderror"
+                            id="image">
+                        <small class="text-muted">Supported formats: JPG, PNG, GIF (Max: 2MB)</small>
+                        @error('image')
+                        <small class="text-danger d-block">{{ $message }}</small>
+                        @enderror
+                    </div>
 
+                    <div class="mb-4">
+                        <label for="description" class="form-label fw-medium">Description</label>
+                        <textarea name="description" class="form-control @error('description') is-invalid @enderror"
+                            placeholder="Enter description..." id="description" rows="6">{{old('description')}}</textarea>
+                        @error('description')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary px-4">Create Post</button>
+                        <a href="{{route('posts.index')}}" class="btn btn-outline-secondary px-4">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
+</div>
 
-    <div class="mb-3">
-        <label for="image" class="form-label">Post Thumbnail</label>
-        <input type="file" name="image" class="form-control @error('image') is-invalid @enderror"
-            placeholder="Choose image...." value="{{old('image')}}" id="image">
-
-        @error('image')
-        <small class="text-danger">{{ $message }}</small>
-        @enderror
-    </div>
-
-
-    <div class="mb-3">
-        <label for="description" class="form-label">Description</label>
-        <textarea name="description" class="form-control @error('description') is-invalid @enderror"
-            placeholder="Enter description...." value="{{old('description')}}" id="description" cols="20"
-            rows="5"></textarea>
-        @error('description')
-        <small class="text-danger">{{ $message }}</small>
-        @enderror
-    </div>
-
-    <button type="submit" class="btn btn-primary">Save</button>
-</form>
 @endsection
