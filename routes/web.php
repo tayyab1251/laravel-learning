@@ -1,22 +1,31 @@
 <?php
 
-use App\Http\Controllers\StudentController;
-
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
-// Entry point to our project
-Route::get('/', [StudentController::class, 'index']);
+// Route to display all the available posts
+Route::get('/', [PostController::class, 'index'])->name('posts.index');
 
-// Load view for adding new student
-Route::get('students/create',[StudentController::class, 'loadAddForm']);
+Route::get('posts', [PostController::class, 'index'])->name('posts.index');
 
-// Route for adding a new student
-Route::post('create', [StudentController::class, 'create'])->name('students.add');
+// Route to display all the available posts
+Route::get('posts', [PostController::class, 'index'])->name('posts.index');
 
-// Route for editing student
-Route::get('students/{id}/edit', [StudentController::class, 'loadUpdateStudentForm'])->name('students.edit');
+// route to create a post
+// Route::view('posts/create', 'posts/create-post')->name('posts.create');
+Route::get('posts/create', [PostController::class, 'create'])->name('posts.create');
 
-// Route for handling edit student data
-Route::post('students/{id}', [StudentController::class, 'update'])->name('students.update');
+// Rouet to strore the data into the database
+Route::post('posts/store', [PostController::class, 'store'])->name('posts.store');
 
-Route::post('students/{id}/delete', [StudentController::class, 'destroy'])->name('students.delete');
+// Route to handle a signle record
+Route::get('posts/show/{id}', [PostController::class, 'show'])->name('posts.show');
+
+// Route to handle editing a post
+Route::get('posts/edit/{id}', [PostController::class, 'edit'])->name('posts.edit');
+
+// Route to handle the update functionality
+Route::patch('posts/update/{id}', [PostController::class, 'update'])->name('posts.update');
+
+// Route to delete the post
+Route::delete('posts/delete/{id}', [PostController::class, 'destroy'])->name('posts.delete');

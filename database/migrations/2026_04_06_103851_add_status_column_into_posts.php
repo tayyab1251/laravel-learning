@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cities', function (Blueprint $table) {
-            $table->unsignedBigInteger('city_id', true)->primary();
-            $table->string('name', 15);
-            $table->timestamps();
+        Schema::table('posts', function (Blueprint $table) {
+            $table->boolean('status')->default(false)->after('description');
         });
     }
 
@@ -23,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cities');
+        Schema::table('posts', function (Blueprint $table) {
+            //
+        });
     }
 };
